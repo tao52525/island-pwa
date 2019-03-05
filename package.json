@@ -18,10 +18,19 @@
     "gulp": "^4.0.0",
     "gulp-changed": "^3.2.0",
     "koa": "^2.7.0",
-    "koa-static": "^5.0.0"
+    "koa-body": "^4.0.8",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "nedb": "^1.8.0",
+    "request": "^2.88.0",
+    "web-push": "^3.3.3"
   },
   "faas": {
     "domain": "island-pwa",
     "public": "dist"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }

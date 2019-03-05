@@ -4,7 +4,6 @@ self.addEventListener('install', function (e) {
       return cache.addAll([
         '/index.js',
         '/index.html',
-        '/icon.png',
         '/'
       ]);
     })
@@ -40,4 +39,17 @@ self.addEventListener('fetch', function (event) {
           );
       })
   );
+});
+
+// sw.js
+self.addEventListener('push', function (e) {
+  var data = e.data;
+  if (e.data) {
+    data = data.json();
+    console.log('push的数据为：', data);
+    self.registration.showNotification(data);
+  } 
+  else {
+    console.log('push没有任何数据');
+  }
 });
