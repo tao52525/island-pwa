@@ -73,13 +73,22 @@ router.post('/push', koaBody(), async ctx => {
 
   for (let i = 0; i < list.length; i++) {
     let subscription = list[i].subscription;
-    pushMessage(subscription, JSON.stringify(payload));
+    pushMessage(subscription, payload);
   }
 
   ctx.response.body = {
     status
   };
 });
+/**
+ * 热映电影
+ */
+router.get('/movie/in_theaters', async (ctx, next) => {
+  let url = `https://api.douban.com/v2/movie/in_theaters`;
+  let res = await util.get(url);
+  ctx.response.body = res;
+});
+
 
 app.use(router.routes());
 app.use(Static(path.resolve(__dirname, staticPath)));

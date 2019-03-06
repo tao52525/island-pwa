@@ -1,0 +1,17 @@
+.title {
+  margin-left: 5px;
+}
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.content > div {
+  width: 30%;
+  margin-bottom: 10px;
+}
+.content > div > img {
+  width: 100%;
+  height: 100%;
+}
+
