@@ -1,12 +1,13 @@
 // 首先引入 Workbox 框架
 // importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.3.0/workbox-sw.js');
 // 使用淘宝镜像Workbox
+const myUrl = 'https://island.ngrok.xiaomiqiu.cn'
 importScripts('https://g.alicdn.com/kg/workbox/3.3.0/workbox-sw.js');
 workbox.setConfig({
   modulePathPrefix: 'https://g.alicdn.com/kg/workbox/3.3.0/'
 });
 if (workbox) {
-  console.log(`Yay! workbox is loaded 🎉`, workbox);
+  console.log(`Yay! workbox is loaded 🎉`);
 } else {
   console.log(`Boo! workbox didn't load 😬`);
 }
@@ -14,7 +15,7 @@ workbox.precaching.precacheAndRoute([
   // 注册成功后要立即缓存的资源列表
   '/index.js',
   '/index.html',
-  './style.css',
+  '/style.css',
   'https://unpkg.com/axios/dist/axios.min.js',
   '/movie/in_theaters',
   '/'
@@ -28,7 +29,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   new RegExp('.*\.(?:js|css)'),
-  workbox.strategies.cacheFirst()
+  workbox.strategies.networkFirst()
 );
 
 workbox.routing.registerRoute(
@@ -38,9 +39,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   new RegExp('https://unpkg\.com/*'),
-  workbox.strategies.cacheFirst({
-    cacheName: 'example:img'
-  })
+  workbox.strategies.cacheFirst()
 );
 
 self.addEventListener('push', function (e) {
@@ -51,7 +50,7 @@ self.addEventListener('push', function (e) {
       icon: '/images/icons/icon144.png',
       body: '去看看',
       actions: [{
-        action: 'show-book',
+        action: 'show-movie',
         title: '去看看'
       }, {
         action: 'contact-me',
@@ -71,8 +70,8 @@ self.addEventListener('notificationclick', function (e) {
   console.log(`action tag: ${e.notification.tag}`, `action: ${action}`);
 
   switch (action) {
-    case 'show-book':
-      console.log('show-book');
+    case 'show-movie':
+      console.log('show-movie');
       break;
     case 'contact-me':
       console.log('contact-me');
@@ -88,9 +87,10 @@ self.addEventListener('notificationclick', function (e) {
   e.waitUntil(
     // 获取所有clients
     self.clients.matchAll().then(function (clients) {
+      console.log(clients)
       if (!clients || clients.length === 0) {
         // 当不存在client时，打开该网站
-        self.clients.openWindow && self.clients.openWindow('http://127.0.0.1:8082');
+        self.clients.openWindow && self.clients.openWindow('https://island.ngrok.xiaomiqiu.cn');
         return;
       }
       // 切换到该站点的tab

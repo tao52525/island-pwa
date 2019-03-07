@@ -1,10 +1,6 @@
 // index.js
 // import axios from 'axios'
 const host = ''
-const doubanApi = 'https://api.douban.com/v2/'
-function registerServiceWorker(file) {
-  return navigator.serviceWorker.register(file);
-}
 
 function subscribeUserToPush(registration, publicKey) {
   var subscribeOptions = {
@@ -62,8 +58,16 @@ function getMovieInTheaters() {
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   var publicKey = 'BOh7UQsSHU5REe402EtN02fQGwM0tlhugWcLpPfjQeIqDez5GI7Caj1ZluAx4fhm2GafWw8Q7xB3yQX9NU3YwNo';
   // 注册service worker
-  registerServiceWorker('./sw2.js').then(function (registration) {
+  navigator.serviceWorker.register('./sw2.js').then(function (registration) {
     console.log('Service Worker 注册成功');
+
+    // 在client中监听message事件
+    navigator.serviceWorker.addEventListener('message', function (e) {
+      var action = e.data;
+      if (action === 'contact-me') {
+        alert('email: 891585360@qq.com')
+      }
+    });
     // 开启该客户端的消息推送订阅功能
     return subscribeUserToPush(registration, publicKey);
   }).then(function (subscription) {
