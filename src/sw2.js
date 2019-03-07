@@ -1,6 +1,10 @@
 // 首先引入 Workbox 框架
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.3.0/workbox-sw.js');
-
+// importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.3.0/workbox-sw.js');
+// 使用淘宝镜像Workbox
+importScripts('https://g.alicdn.com/kg/workbox/3.3.0/workbox-sw.js');
+workbox.setConfig({
+  modulePathPrefix: 'https://g.alicdn.com/kg/workbox/3.3.0/'
+});
 if (workbox) {
   console.log(`Yay! workbox is loaded 🎉`, workbox);
 } else {
